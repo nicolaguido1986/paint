@@ -12,9 +12,18 @@ class RectangleCommandTest {
   private static final Canvas CANVAS = new Canvas(5, 5);
 
   @ParameterizedTest
-  @ValueSource(strings = {"", " ", "R 1 2", "R -1 -2", "R 0 0 0 0", "R 2 1 1 1"})
+  @ValueSource(strings = {"", " ", "R 1 2", "R -1 -2", "R 0 0 0 0"})
   void shouldThrownException(String input) {
-    assertThrows(UnprocessableCommandException.class, () -> new RectangleCommand(input));
+    var exception =
+        assertThrows(UnprocessableCommandException.class, () -> new RectangleCommand(input));
+    assertEquals("Command not valid", exception.getMessage());
+  }
+
+  @Test
+  void shouldThrownExceptionWhenCoordinatesAreNotValid() {
+    var exception =
+        assertThrows(UnprocessableCommandException.class, () -> new RectangleCommand("R 2 1 1 1"));
+    assertEquals("Command not valid. Wrong coordinate", exception.getMessage());
   }
 
   @Test

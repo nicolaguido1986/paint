@@ -14,7 +14,7 @@ public class Canvas {
     this.height = height;
 
     canvas = new char[height + 2][width + 2];
-    for (int i = 0; i <canvas.length ; i++) {
+    for (int i = 0; i < canvas.length; i++) {
       for (int j = 0; j < canvas[0].length; j++) {
         if (i == 0 || i == (height + 1)) {
           canvas[i][j] = '=';

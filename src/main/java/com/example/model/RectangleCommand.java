@@ -48,9 +48,9 @@ public class RectangleCommand implements Command {
       throw new UnprocessableCommandException("Canvas is null");
     }
     if (x0 > canvas.getWidth()
-            || x1 > canvas.getWidth()
-            || y0 > canvas.getHeight()
-            || y1 > canvas.getHeight()) {
+        || x1 > canvas.getWidth()
+        || y0 > canvas.getHeight()
+        || y1 > canvas.getHeight()) {
       throw new UnprocessableCommandException("Points cannot be drawn");
     }
     var grid = canvas.getCanvas();

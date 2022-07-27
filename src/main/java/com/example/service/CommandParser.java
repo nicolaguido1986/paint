@@ -23,7 +23,7 @@ public class CommandParser {
             case 'L' -> new LineCommand(line);
             case 'R' -> new RectangleCommand(line);
             case 'Q' -> new QuiteCommand();
-            default -> throw new UnprocessableCommandException("Command line not valid");
+            default -> throw new UnprocessableCommandException("Command not implemented");
         };
     }
 }

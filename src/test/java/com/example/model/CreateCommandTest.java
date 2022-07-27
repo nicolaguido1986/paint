@@ -16,7 +16,6 @@ class CreateCommandTest {
   @ValueSource(strings = {"C a b", "", " ", "c 1 2", "C -1 -2", "C 0 0"})
   void shouldThrownException(String input) {
     assertThrows(UnprocessableCommandException.class, () -> new CreateCommand(input));
-
   }
 
   @Test
@@ -31,5 +30,4 @@ class CreateCommandTest {
     assertEquals(WIDTH, canvas.getWidth());
     assertEquals(HEIGHT, canvas.getHeight());
   }
-
 }

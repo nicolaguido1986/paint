@@ -23,7 +23,8 @@ class LineCommandTest {
 
   @Test
   void shouldThrownExceptionWhenLineIsOblique() {
-    var exception = assertThrows(UnprocessableCommandException.class, () -> new LineCommand("L 1 2 3 4"));
+    var exception =
+        assertThrows(UnprocessableCommandException.class, () -> new LineCommand("L 1 2 3 4"));
     assertEquals("Command not valid. Line is oblique", exception.getMessage());
   }
 
@@ -39,7 +40,6 @@ class LineCommandTest {
         assertThrows(
             UnprocessableCommandException.class, () -> new LineCommand("L 1 2 1 3").apply(null));
     assertEquals("Canvas is null", exception.getMessage());
-
   }
 
   @ParameterizedTest
@@ -50,7 +50,6 @@ class LineCommandTest {
             UnprocessableCommandException.class, () -> new LineCommand(input).apply(CANVAS));
     assertEquals("Points cannot be drawn", exception.getMessage());
   }
-
 
   @Test
   void shouldDrawAVerticleLine() {

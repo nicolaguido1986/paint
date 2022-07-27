@@ -37,6 +37,4 @@ public class CreateCommand implements Command {
     log.debug("Canvas created with w={} and h={}", canvas.getWidth(), canvas.getHeight());
     return canvas;
   }
-
-
 }
