@@ -41,7 +41,7 @@ public class Main {
         } catch (UnprocessableCommandException ex) {
           log.error(COMMAND_NOT_VALID, ex);
         }
-      } while (command.getOperation() != Operation.QUITE);
+      } while (true);
     }
   }
 }
