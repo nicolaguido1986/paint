@@ -9,7 +9,9 @@ public enum Operation {
   CREATE('C'),
   LINE('L'),
   RECTANGLE('R'),
-  QUITE('Q');
+  QUITE('Q'),
+  DIAGONAL('D'),
+  UNDO('U');
 
   char value;
 }

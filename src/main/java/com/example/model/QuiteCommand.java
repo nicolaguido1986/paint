@@ -13,9 +13,4 @@ public class QuiteCommand implements Command {
     return operation;
   }
 
-  @Override
-  public Canvas apply(Canvas canvas) {
-    log.debug("Quite command invoked.");
-    return null;
-  }
 }

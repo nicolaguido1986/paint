@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 @Value
 @Slf4j
-public class CreateCommand implements Command {
+public class CreateCommand implements SystemCommand {
   public static final Pattern pattern = Pattern.compile("(C) ([1-9]\\d*) ([1-9]\\d*)");
 
   private static Operation operation = Operation.CREATE;

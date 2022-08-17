@@ -10,7 +10,7 @@ import static com.example.model.Canvas.DRAWING_CHAR;
 
 @Value
 @Slf4j
-public class LineCommand implements Command {
+public class LineCommand implements ToolCommand {
   public static final Pattern pattern =
       Pattern.compile("(L) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*)");
 
@@ -42,18 +42,15 @@ public class LineCommand implements Command {
   }
 
   @Override
-  public Canvas apply(Canvas canvas) {
-    log.debug("Line command invoked, ({}, {}) ({}, {})", x0, y0, x1, y1);
-    if (canvas == null) {
+  public void draw(char[][] grid, int width, int height) {
+    if (grid == null) {
       throw new UnprocessableCommandException("Canvas is null");
     }
-    if (x0 > canvas.getWidth()
-        || x1 > canvas.getWidth()
-        || y0 > canvas.getHeight()
-        || y1 > canvas.getHeight()) {
+    log.debug("Diagonal command invoked, ({}, {}) ({}, {})", x0, y0, x1, y1);
+
+    if (x0 > width || x1 > width || y0 > height || y1 > height) {
       throw new UnprocessableCommandException("Points cannot be drawn");
     }
-    var grid = canvas.getCanvas();
     if (x0 == x1) {
       for (int i = y0; i <= y1; i++) {
         grid[i][x0] = DRAWING_CHAR;
@@ -64,6 +61,5 @@ public class LineCommand implements Command {
       }
     }
     log.debug("Line command applied");
-    return canvas;
   }
 }

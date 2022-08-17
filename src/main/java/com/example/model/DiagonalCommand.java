@@ -10,11 +10,11 @@ import static com.example.model.Canvas.DRAWING_CHAR;
 
 @Value
 @Slf4j
-public class RectangleCommand implements ToolCommand {
+public class DiagonalCommand implements ToolCommand {
   public static final Pattern pattern =
-      Pattern.compile("(R) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*)");
+      Pattern.compile("(D) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*) ([1-9]\\d*)");
 
-  static Operation operation = Operation.RECTANGLE;
+  private static Operation operation = Operation.LINE;
 
   int x0;
   int y0;
@@ -22,7 +22,11 @@ public class RectangleCommand implements ToolCommand {
   int x1;
   int y1;
 
-  public RectangleCommand(String commandLine) {
+  int diff;
+  int xDirection;
+  int yDirection;
+
+  public DiagonalCommand(String commandLine) {
     var matcher = pattern.matcher(commandLine);
     if (!matcher.find()) {
       throw new UnprocessableCommandException("Command not valid");
@@ -31,9 +35,12 @@ public class RectangleCommand implements ToolCommand {
     y0 = Integer.parseInt(matcher.group(3));
     x1 = Integer.parseInt(matcher.group(4));
     y1 = Integer.parseInt(matcher.group(5));
-    if (x0 > x1 || y0 > y1) {
-      throw new UnprocessableCommandException("Command not valid. Wrong coordinate");
+    diff = Math.abs(x0 - x1);
+    if (Math.abs(y0 - y1) != diff) {
+      throw new UnprocessableCommandException("Command not valid. Line is not a diagonal");
     }
+    xDirection = x0 <= x1 ? 1 : -1;
+    yDirection = y0 <= y1 ? 1 : -1;
   }
 
   @Override
@@ -50,13 +57,8 @@ public class RectangleCommand implements ToolCommand {
     if (x0 > width || x1 > width || y0 > height || y1 > height) {
       throw new UnprocessableCommandException("Points cannot be drawn");
     }
-    for (int i = x0; i <= x1; i++) {
-      grid[y0][i] = DRAWING_CHAR;
-      grid[y1][i] = DRAWING_CHAR;
-    }
-    for (int i = y0; i < y1; i++) {
-      grid[i][x0] = DRAWING_CHAR;
-      grid[i][x1] = DRAWING_CHAR;
+    for (int i = 0; i <= diff; i++) {
+      grid[y0 + (i * yDirection)][x0 + (i * xDirection)] = DRAWING_CHAR;
     }
     log.debug("Line command applied");
   }
